@@ -1,3 +1,5 @@
+// set up json-server npm install json-server@0
+
 const graphql = require('graphql');
 const _ = require('lodash');
 const {

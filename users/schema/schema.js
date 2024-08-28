@@ -8,6 +8,7 @@ const {
     GraphQLString,
     GraphQLSchema,
     GraphQLList,
+    GraphQLNonNull,
 } = graphql;
 
 const baseURL = 'http://localhost:3000';
@@ -29,6 +30,13 @@ const baseURL = 'http://localhost:3000';
 
 //     google: companies(id:"2") {
 //       ...companyDetails
+//     }
+//   }
+
+// mutation {
+//     addUser(firstName: "Leha", age:23) {
+//       id
+//       firstName
 //     }
 //   }
 
@@ -104,13 +112,22 @@ const mutation = new GraphQLObjectType({
         addUser: {
             type: UserType,
             args: {
-                firstName: GraphQLString,
-                age: GraphQLInt,
-                companyId: GraphQLString,
+                firstName: {
+                    type: new GraphQLNonNull(GraphQLString),
+                },
+                age: { type: new GraphQLNonNull(GraphQLInt) },
+                companyId: { type: GraphQLString },
             },
-            resolve(_, args) {},
+            resolve(_, { firstName, age }) {
+                return axios
+                    .post(`${baseURL}/users`, {
+                        firstName,
+                        age,
+                    })
+                    .then((res) => res.data);
+            },
         },
     },
 });
 
-module.exports = new GraphQLSchema({ query: RootQuery });
+module.exports = new GraphQLSchema({ query: RootQuery, mutation });

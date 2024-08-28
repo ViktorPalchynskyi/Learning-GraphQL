@@ -1,18 +1,13 @@
 // set up json-server npm install json-server@0
 
 const graphql = require('graphql');
-const _ = require('lodash');
+const axios = require('axios');
 const {
     GraphQLObjectType,
     GraphQLInt,
     GraphQLString,
     GraphQLSchema,
 } = graphql;
-
-const users = [
-    { id: '19', firstName: 'Viktor', age: 26 },
-    { id: '7', firstName: 'Irina', age: 27 },
-];
 
 const UserType = new GraphQLObjectType({
     name: 'User',
@@ -30,7 +25,9 @@ const RootQuery = new GraphQLObjectType({
             type: UserType,
             args: { id: { type: GraphQLString } },
             resolve(parentValue, args) {
-                return _.find(users, { id: args.id });
+                return axios
+                    .get(`http://localhost:3000/users/${args.id}`)
+                    .then((res) => res.data);
             },
         },
     },

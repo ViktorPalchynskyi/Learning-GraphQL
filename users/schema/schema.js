@@ -12,6 +12,26 @@ const {
 
 const baseURL = 'http://localhost:3000';
 
+// query fragment
+// fragment companyDetails on Companies {
+//     name
+//     description
+//     users{
+//       firstName
+//       age
+//     }
+//   }
+  
+//   query fetchCompanyWithUsers {
+//     apple: companies(id:"1") {
+//      ...companyDetails
+//     }
+    
+//     google: companies(id:"2") {
+//       ...companyDetails
+//     }
+//   }
+
 const CompaniesType = new GraphQLObjectType({
     name: 'Companies',
     fields: () => ({

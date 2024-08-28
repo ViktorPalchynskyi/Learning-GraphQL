@@ -127,6 +127,41 @@ const mutation = new GraphQLObjectType({
                     .then((res) => res.data);
             },
         },
+        deleteUser: {
+            type: UserType,
+            args: {
+                id: {
+                    type: new GraphQLNonNull(GraphQLString),
+                },
+            },
+            resolve(_, { id }) {
+                return axios
+                    .delete(`${baseURL}/users/${id}`)
+                    .then((res) => res.data);
+            },
+        },
+        editUser: {
+            type: UserType,
+            args: {
+                firstName: {
+                    type: GraphQLString,
+                },
+                age: { type: GraphQLInt },
+                companyId: { type: GraphQLString },
+                id: {
+                    type: new GraphQLNonNull(GraphQLString),
+                },
+            },
+            resolve(_, { firstName, age, companyId, id }) {
+                return axios
+                    .patch(`${baseURL}/users/${id}`, {
+                        firstName,
+                        age,
+                        companyId,
+                    })
+                    .then((res) => res.data);
+            },
+        },
     },
 });
 

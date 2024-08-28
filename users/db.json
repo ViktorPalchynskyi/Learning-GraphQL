@@ -19,9 +19,10 @@
       "companyId": "1"
     },
     {
-      "firstName": "Leha",
-      "age": 23,
-      "id": "7Cs3LbT"
+      "firstName": "Alexy",
+      "age": 25,
+      "id": "7Cs3LbT",
+      "companyId": "2"
     }
   ],
   "companies": [

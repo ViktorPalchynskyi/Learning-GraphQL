@@ -21,12 +21,12 @@ const baseURL = 'http://localhost:3000';
 //       age
 //     }
 //   }
-  
+
 //   query fetchCompanyWithUsers {
 //     apple: companies(id:"1") {
 //      ...companyDetails
 //     }
-    
+
 //     google: companies(id:"2") {
 //       ...companyDetails
 //     }
@@ -94,6 +94,21 @@ const RootQuery = new GraphQLObjectType({
                     .get(`${baseURL}/companies/${id}`)
                     .then((res) => res.data);
             },
+        },
+    },
+});
+
+const mutation = new GraphQLObjectType({
+    name: 'Mutation',
+    fields: {
+        addUser: {
+            type: UserType,
+            args: {
+                firstName: GraphQLString,
+                age: GraphQLInt,
+                companyId: GraphQLString,
+            },
+            resolve(_, args) {},
         },
     },
 });

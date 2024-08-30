@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { fetchSongById } from '../../queries/fetchSongById';
 import { Link } from 'react-router';
 import LyricCreate from '../LyricCreate.js/LyricCreate';
+import LyricList from '../LyricList/LyricList';
 
 class SongDetail extends Component {
     render() {
@@ -16,11 +17,7 @@ class SongDetail extends Component {
             <div>
                 <Link to="/">Back</Link>
                 <h3>{title}</h3>
-                <ul>
-                    {lyrics.map(({ content, id }) => (
-                        <li key={id}>{content}</li>
-                    ))}
-                </ul>
+                <LyricList lyrics={lyrics}/>
                 <LyricCreate songId={this.props.params.id} />
             </div>
         );

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { Link } from 'react-router';
 import { fetchSong, deleteSong } from '../../queries';
+import '../../style/style.css';
 
 class SongList extends Component {
     constructor() {
@@ -12,12 +13,13 @@ class SongList extends Component {
 
     onSongDelete(id) {
         console.log(id, this.props);
-        this.props.mutate({
-            variables: {
-                id,
-            },
-        })
-        .then(() => this.props.data.refetch())
+        this.props
+            .mutate({
+                variables: {
+                    id,
+                },
+            })
+            .then(() => this.props.data.refetch());
     }
 
     renderSongs() {

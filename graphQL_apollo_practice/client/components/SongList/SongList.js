@@ -28,7 +28,7 @@ class SongList extends Component {
                 {title}
                 <i
                     className="material-icons"
-                    onClick={this.onSongDelete.bind(this, id)}
+                    onClick={() => this.onSongDelete(id)}
                 >
                     delete
                 </i>

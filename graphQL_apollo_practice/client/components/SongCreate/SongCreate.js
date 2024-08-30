@@ -21,7 +21,7 @@ class SongCreate extends Component {
                 },
                 refetchQueries: [{ query: fetchSong }],
             })
-            .then((res) => {
+            .then(() => {
                 hashHistory.push('/');
             })
             .catch((erorr) => console.log(erorr));

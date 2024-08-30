@@ -12,7 +12,6 @@ class SongDetail extends Component {
         }
 
         const { title, lyrics } = this.props.data.song;
-        console.log(lyrics);
         return (
             <div>
                 <Link to="/">Back</Link>

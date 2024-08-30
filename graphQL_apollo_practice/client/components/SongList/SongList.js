@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { Link } from 'react-router';
-import { fetchSong } from '../../queries';
+import { fetchSong, deleteSong } from '../../queries';
 
 class SongList extends Component {
     constructor() {
@@ -37,4 +37,4 @@ class SongList extends Component {
     }
 }
 
-export default graphql(fetchSong)(SongList);
+export default graphql(deleteSong)(graphql(fetchSong)(SongList));

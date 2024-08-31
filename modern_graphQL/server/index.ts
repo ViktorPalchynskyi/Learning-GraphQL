@@ -1,23 +1,29 @@
+// https://studio.apollographql.com/sandbox/explorer
+
 import express from 'express';
-import { ApolloServer } from 'apollo-server-express';
+import cors from 'cors';
+import { ApolloServer } from '@apollo/server';
 import connectDB from './config/database';
-// import { typeDefs, resolvers } from './graphql/schema';
-// import { startStandaloneServer } from '@apollo/server/standalone';
+import { expressMiddleware } from '@apollo/server/express4';
+import { typeDefs, resolvers } from './graphql/schema';
+import { buildSubgraphSchema } from '@apollo/subgraph';
 
 const app = express();
-// const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+    schema: buildSubgraphSchema({ typeDefs, resolvers }),
+});
 
 connectDB();
 
-// server.applyMiddleware({ app });
-
-// startStandaloneServer(server).then(({ url }) => {
-//     console.log(`Server ready at ${url}`);
-//   });
-
-app.get('/', () => console.log('Hello there'));
+server.start().then(() => {
+    app.use(
+        '/graphql',
+        cors(),
+        express.json(),
+        expressMiddleware(server)
+    );
+});
 
 app.listen({ port: 4000 }, () => {
-    // server.graphqlPath
     console.log(`Server is running at http://localhost:4000`);
 });

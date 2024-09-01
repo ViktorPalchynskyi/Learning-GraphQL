@@ -15,15 +15,22 @@ const server = new ApolloServer({
 
 connectDB();
 
+app.use(
+    cors({
+        origin: ['http://localhost:5173'],
+        methods: ['GET', 'POST'],
+        allowedHeaders: ['Content-Type'],
+    })
+);
+
 server.start().then(() => {
     app.use(
         '/graphql',
-        cors(),
         express.json(),
         expressMiddleware(server)
     );
 });
 
 app.listen({ port: 4000 }, () => {
-    console.log(`Server is running at http://localhost:4000`);
+    console.log(`Server is running at http://localhost:4000/graphql`);
 });
